@@ -1271,6 +1271,65 @@ body {
 }
 
 /* =============================================
+   FOOTER MARQUEE STRIP
+   ============================================= */
+.marquee-strip {
+    overflow: hidden;
+    border-top: 1px solid var(--white-faint);
+    border-bottom: 1px solid var(--white-faint);
+    background: var(--black-2);
+    padding: 18px 0;
+    position: relative;
+}
+.marquee-strip::before,
+.marquee-strip::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+}
+.marquee-strip::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(8,8,8,1), transparent);
+}
+.marquee-strip::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(8,8,8,1), transparent);
+}
+.marquee-strip .marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    width: max-content;
+    animation: marqueeScroll 40s linear infinite;
+}
+.marquee-strip .marquee-track:hover {
+    animation-play-state: paused;
+}
+.marquee-link {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,243,238,0.85);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+}
+.marquee-link:hover {
+    color: var(--gold);
+}
+.marquee-sep {
+    color: var(--gold);
+    font-size: 9px;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+/* =============================================
    FOOTER
    ============================================= */
 #footer {
