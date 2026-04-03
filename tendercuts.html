@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tendercuts — Case Study · Charanjeet Singh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+  <style>
+    .tag-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      border: 1px solid var(--gold-border);
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-faint);
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .problem-block {
+      padding: 40px 48px;
+      border: 1px solid var(--gold-border);
+      border-radius: 3px;
+      background: var(--gold-faint);
+      margin-top: 40px;
+    }
+    .problem-block h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .problem-block p {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--white);
+    }
+    .cs-highlight { color: var(--gold); font-weight: 500; }
+
+    .design-decision {
+      padding: 28px 32px;
+      border-left: 2px solid var(--gold);
+      background: rgba(201,168,76,0.03);
+      margin-bottom: 16px;
+      border-radius: 0 3px 3px 0;
+    }
+    .design-decision h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .design-decision p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--white-dim);
+    }
+
+    .flow-diagram {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--gold-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .flow-node {
+      padding: 32px 24px;
+      border-right: 1px solid var(--gold-border);
+      position: relative;
+      text-align: center;
+    }
+    .flow-node:last-child { border-right: none; }
+    .flow-node::after {
+      content: '→';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      font-size: 16px;
+      z-index: 2;
+    }
+    .flow-node:last-child::after { display: none; }
+    .flow-node-icon { font-size: 24px; margin-bottom: 14px; display: block; }
+    .flow-node-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .flow-node-sub {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--white-dim);
+    }
+    .flow-old { background: rgba(255,80,80,0.04); }
+    .flow-new { background: rgba(201,168,76,0.04); }
+    .flow-label-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-bottom: 2px;
+    }
+    .flow-label-tag {
+      padding: 8px 24px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .flow-label-tag.old { color: #888; background: rgba(255,80,80,0.06); }
+    .flow-label-tag.new { color: var(--gold); background: rgba(201,168,76,0.06); }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .ba-card {
+      padding: 32px;
+      border-radius: 3px;
+      border: 1px solid var(--white-faint);
+    }
+    .ba-card.before { border-color: rgba(255,80,80,0.2); background: rgba(255,80,80,0.03); }
+    .ba-card.after  { border-color: var(--gold-border); background: var(--gold-faint); }
+    .ba-card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .ba-card.before .ba-card-tag { color: #888; }
+    .ba-card.after  .ba-card-tag { color: var(--gold); }
+    .ba-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ba-card ul li {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--white-dim);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .ba-card ul li::before { flex-shrink: 0; margin-top: 3px; }
+    .ba-card.before ul li::before { content: '✕'; color: rgba(255,80,80,0.7); }
+    .ba-card.after  ul li::before { content: '✓'; color: var(--gold); }
+
+    .cs-full-mockup {
+      width: calc(100% + 128px);
+      margin-left: -64px;
+      border-top: 1px solid var(--white-faint);
+      border-bottom: 1px solid var(--white-faint);
+      background: var(--black-2);
+      padding: 80px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .mini-screen {
+      border: 1px solid var(--gold-border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--black-3);
+    }
+    .mini-screen-bar {
+      padding: 10px 14px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      border-bottom: 1px solid var(--white-faint);
+      background: var(--black-2);
+    }
+    .mini-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .mini-dot:nth-child(1) { background: #FF5F57; }
+    .mini-dot:nth-child(2) { background: #FEBC2E; }
+    .mini-dot:nth-child(3) { background: #28C840; }
+    .mini-screen-body {
+      padding: 28px 24px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .mini-screen-icon { font-size: 28px; opacity: 0.5; }
+    .mini-screen-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+    }
+    @media (max-width: 1024px) {
+      .cs-full-mockup { width: 100%; margin-left: 0; padding: 60px 40px; grid-template-columns: 1fr 1fr; }
+      .flow-diagram { grid-template-columns: 1fr 1fr; }
+      .flow-node:nth-child(2)::after { display: none; }
+      .before-after { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .cs-full-mockup { grid-template-columns: 1fr; }
+      .flow-diagram { grid-template-columns: 1fr; }
+      .flow-node::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Nav -->
+  <nav class="cs-nav">
+    <a href="index.html" class="slot-logo" id="slotLogo" aria-label="CS">
+      <div class="slot-reel-wrap">
+        <div class="slot-reel" id="slotLeft">
+          <span>C</span><span>C</span><span>U</span><span>C</span>
+        </div>
+      </div>
+      <div class="slot-reel-wrap">
+        <div class="slot-reel" id="slotRight">
+          <span>S</span><span>X</span><span>X</span><span>S</span>
+        </div>
+      </div>
+    </a>
+    <a href="index.html#work" class="cs-nav-back">← Back to Work</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="cs-hero">
+    <div class="cs-hero-bg"></div>
+    <div class="cs-hero-bg-text">TENDER</div>
+
+    <div class="cs-hero-content">
+      <div class="cs-hero-tag">Case Study · 03</div>
+
+      <h1 class="cs-hero-title">
+        Tendercuts<br/>E-Commerce
+      </h1>
+
+      <div style="margin-bottom: 40px;">
+        <span class="tag-pill">E-Commerce</span>
+        <span class="tag-pill">User Flow Optimisation</span>
+        <span class="tag-pill">Mobile App</span>
+        <span class="tag-pill">Lead Design</span>
+      </div>
+
+      <div class="cs-hero-meta">
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">My Role</span>
+          <span class="cs-hero-meta-value">Lead UX Designer</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Platform</span>
+          <span class="cs-hero-meta-value">Mobile App · Web</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Scope</span>
+          <span class="cs-hero-meta-value">End-to-end product ownership</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Award</span>
+          <span class="cs-hero-meta-value">Best Performing Person</span>
+        </div>
+      </div>
+
+      <div class="cs-hero-impact" style="flex-wrap:nowrap;">
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">+40%</span>
+          <span class="cs-impact-label">Order volume increase</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">Full</span>
+          <span class="cs-impact-label">Product ownership</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">⭐</span>
+          <span class="cs-impact-label">Best Performing Award</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">5+</span>
+          <span class="cs-impact-label">Product surfaces redesigned</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Overview</div>
+    <h2 class="cs-section-title">Leading design for<br/>India's online meat market</h2>
+    <p class="cs-body">
+      Tendercuts is one of India's leading online fresh meat delivery platforms — delivering cleaned, cut, and packaged meat directly to customers' doors. Operating in a high-trust, high-sensitivity product category (fresh food, precise cuts, delivery timing), the UX stakes were uniquely high.
+    </p>
+    <p class="cs-body" style="margin-top: 20px;">
+      I joined as Lead UX Designer with full product ownership across all digital surfaces — the mobile app, web platform, and internal operations tooling. The platform was functional but showing friction: drop-offs in checkout, confusion in the browsing experience, and a product catalogue that was hard to navigate. My task was to diagnose the real issues and redesign the user flows end-to-end.
+    </p>
+
+    <div class="problem-block">
+      <h3>The Core Problem</h3>
+      <p>Customers knew what they wanted to buy but couldn't easily get there. The browsing and checkout flow had accumulated years of quick fixes and feature additions — creating a fragmented experience full of dead ends and redundant steps. <span class="cs-highlight">People were abandoning not because they didn't want the product, but because the path to checkout was too hard.</span></p>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Design Process</div>
+    <h2 class="cs-section-title">From diagnosis<br/>to full redesign</h2>
+
+    <div class="cs-process">
+      <div class="cs-process-step">
+        <span class="cs-process-num">01</span>
+        <div class="cs-process-name">Flow Audit</div>
+        <p class="cs-process-desc">Mapped every existing user flow across the app and web. Identified 14 friction points through session recordings, analytics funnel analysis, and customer support ticket review.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">02</span>
+        <div class="cs-process-name">Customer Research</div>
+        <p class="cs-process-desc">Conducted 20 intercept interviews with existing customers. Explored their mental model around buying fresh meat online — trust signals, cut preferences, delivery expectations, repeat behaviour.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">03</span>
+        <div class="cs-process-name">Prioritisation</div>
+        <p class="cs-process-desc">Scored all 14 friction points by conversion impact vs. engineering effort. Identified the 5 highest-leverage fixes — the ones that together could shift order volume substantially.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">04</span>
+        <div class="cs-process-name">Redesign</div>
+        <p class="cs-process-desc">Full hi-fi redesign of browse, product detail, cart, and checkout flows. Designed new category architecture, smarter product cards, and a streamlined 2-step checkout. Usability tested at every stage.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">05</span>
+        <div class="cs-process-name">Ship & Measure</div>
+        <p class="cs-process-desc">Staged rollout — browse first, then PDP, then checkout. Measured impact at each stage. Post-launch monitoring for 12 weeks with weekly analytics reviews and rapid iteration.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Research Insights</div>
+    <h2 class="cs-section-title">What customers<br/>told us (and showed us)</h2>
+
+    <div class="cs-insights">
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 01</span>
+        <div class="cs-insight-title">Fresh meat is a high-trust purchase</div>
+        <p class="cs-insight-body">Unlike most e-commerce, customers couldn't inspect the product before ordering. Visual freshness cues — photography, hygiene certifications, cut clarity — were the primary trust builders. Poor product imagery caused abandonment.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 02</span>
+        <div class="cs-insight-title">Cut selection caused the most confusion</div>
+        <p class="cs-insight-body">Customers didn't know what "curry cut" vs. "biryani cut" vs. "boneless" meant visually. The product catalogue used text descriptions where images and visual comparisons were needed. This was the #1 reason for cart abandonment.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 03</span>
+        <div class="cs-insight-title">Repeat customers had a very different pattern</div>
+        <p class="cs-insight-body">70% of orders came from repeat customers who knew exactly what they wanted. The browsing experience was designed for discovery — but the majority needed a "reorder" path. There was no shortcut for loyalty.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 04</span>
+        <div class="cs-insight-title">Delivery time was the #1 conversion factor</div>
+        <p class="cs-insight-body">For fresh meat, delivery time wasn't a nice-to-have — it was essential information that determined whether customers ordered at all. This needed to be visible from the product card, not buried in checkout.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 05</span>
+        <div class="cs-insight-title">Checkout had 3 unnecessary steps</div>
+        <p class="cs-insight-body">The existing checkout had 7 steps. Analysis showed steps 3, 5, and 6 could be eliminated or combined. Each eliminated step directly improved completion rate — a 43% reduction in steps yielded a 28% improvement in checkout completion.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 06</span>
+        <div class="cs-insight-title">Category navigation was broken</div>
+        <p class="cs-insight-body">The browse experience grouped products in ways that made sense internally but not to customers. Chicken was split across 4 categories. Customers searching for "chicken" had to know which subcategory to look in. Reorganisation was overdue.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Before & After</div>
+    <h2 class="cs-section-title">What changed<br/>across the product</h2>
+
+    <div class="before-after">
+      <div class="ba-card before">
+        <span class="ba-card-tag">Before — The friction</span>
+        <ul>
+          <li>Category navigation split across 4 unclear sections</li>
+          <li>Product cards showed no delivery time estimate</li>
+          <li>Cut type shown as text-only — no visual differentiation</li>
+          <li>No reorder shortcut for repeat customers</li>
+          <li>7-step checkout with redundant address and payment steps</li>
+          <li>No freshness cues or hygiene badges on product cards</li>
+          <li>Cart required leaving product page — losing browse context</li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <span class="ba-card-tag">After — The fix</span>
+        <ul>
+          <li>Unified category nav with customer-facing labels and icons</li>
+          <li>Delivery time slot visible on product card and PDP</li>
+          <li>Visual cut guide with photography for each variant</li>
+          <li>"Reorder" tab pinned to home for returning customers</li>
+          <li>4-step checkout with smart address autofill and saved payments</li>
+          <li>Freshness guarantee badge + FSSAI certification on every card</li>
+          <li>Side-cart drawer — add to cart without leaving browse</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- User Flow -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Checkout Redesign</div>
+    <h2 class="cs-section-title">7 steps down to 4 —<br/>the checkout transformation</h2>
+    <p class="cs-body">The single most impactful change was the checkout flow. Here's the redesigned journey — every step earned its place.</p>
+
+    <div class="flow-diagram" style="margin-top: 56px;">
+      <div class="flow-node">
+        <span class="flow-node-icon">🛒</span>
+        <div class="flow-node-label">Cart Review</div>
+        <p class="flow-node-sub">Summary + delivery slot selection on one screen</p>
+      </div>
+      <div class="flow-node">
+        <span class="flow-node-icon">📍</span>
+        <div class="flow-node-label">Delivery Address</div>
+        <p class="flow-node-sub">Smart autofill from saved addresses or GPS</p>
+      </div>
+      <div class="flow-node">
+        <span class="flow-node-icon">💳</span>
+        <div class="flow-node-label">Payment</div>
+        <p class="flow-node-sub">Saved UPI / card — one tap to select</p>
+      </div>
+      <div class="flow-node">
+        <span class="flow-node-icon">✅</span>
+        <div class="flow-node-label">Confirm</div>
+        <p class="flow-node-sub">Order summary + real-time tracker link</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Decisions -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Design Decisions</div>
+    <h2 class="cs-section-title">The calls that drove<br/>40% order growth</h2>
+
+    <div class="cs-two-col" style="margin-top: 48px; gap: 60px;">
+      <div>
+        <div class="design-decision">
+          <h4>Visual cut guide on PDPs</h4>
+          <p>Replaced text-only cut descriptions with a visual guide showing each cut option with a photo, weight range, and "best for" cooking suggestion. Time on PDP increased. Cut-selection abandonment dropped significantly.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Delivery time on product cards</h4>
+          <p>Added "Delivered by 7 PM today" or "Delivered tomorrow" directly on product cards in the browse view. Customers no longer had to reach checkout to learn if delivery was viable for their meal plan. Browse-to-cart improved immediately.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Reorder tab for repeat customers</h4>
+          <p>Pinned a "Reorder" shortcut to the home screen for returning users showing their last 5 orders. One tap to add previous order to cart. Repeat purchase frequency increased — the most profitable improvement in the entire project.</p>
+        </div>
+      </div>
+      <div>
+        <div class="design-decision">
+          <h4>Side-cart drawer — no context switch</h4>
+          <p>Replaced the "go to cart" full-page redirect with a side drawer that slid in while keeping the browse visible behind it. Customers could review and adjust without losing their browse position. Bounce from cart dropped by 22%.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Trust-first product cards</h4>
+          <p>Redesigned product cards to lead with freshness signals: FSSAI badge, "Freshness Guaranteed" micro-label, and product photography that showed actual cut quality. Trust is not implied in fresh food — it must be designed in explicitly.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Customer-facing category architecture</h4>
+          <p>Reorganised the full product catalogue from internal naming ("SKU-Chicken-Bone-In") to how customers actually thought ("Chicken · Bone-In Pieces · Curry Cuts"). This restructure alone reduced search usage by 38% — customers could browse without needing to search.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section style="padding: 0 64px;">
+    <div class="cs-quote">
+      <p class="cs-quote-text">"When you're selling something as intimate as fresh food, every pixel is a trust signal. Design isn't decoration here — it's the difference between a customer who converts and one who goes to the supermarket instead."</p>
+      <span class="cs-quote-attr">The design lens behind every Tendercuts decision</span>
+    </div>
+  </section>
+
+  <!-- Consumer App Screenshots -->
+  <div style="width:100%;background:var(--black-2);border-top:1px solid var(--white-faint);border-bottom:1px solid var(--white-faint);padding:72px 64px;">
+    <div style="max-width:1200px;margin:0 auto;">
+
+      <!-- Section label -->
+      <div style="margin-bottom:48px;">
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Consumer App · Purchase Flow</div>
+        <div style="font-size:22px;font-family:'Syne',sans-serif;font-weight:700;color:var(--white);line-height:1.3;">Browse, select, checkout — end to end</div>
+      </div>
+
+      <!-- Row 1: 3 phone screens -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:20px;">
+
+        <!-- Home -->
+        <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:12px;overflow:hidden;">
+          <div style="background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">HOME · MULTI-STORE</span>
+          </div>
+          <img src="images/tc-home.jpg" alt="Tendercuts home screen" style="width:100%;display:block;"/>
+        </div>
+
+        <!-- Category -->
+        <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:12px;overflow:hidden;">
+          <div style="background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">BROWSE · −38% SEARCH USAGE</span>
+          </div>
+          <img src="images/tc-category.jpg" alt="Tendercuts category browse" style="width:100%;display:block;"/>
+        </div>
+
+        <!-- Product Options -->
+        <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:12px;overflow:hidden;">
+          <div style="background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">CUT SELECTOR · VISUAL GUIDE</span>
+          </div>
+          <img src="images/tc-product.jpg" alt="Tendercuts product cut options" style="width:100%;display:block;"/>
+        </div>
+      </div>
+
+      <!-- Row 2: 3 phone screens -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+
+        <!-- Cart -->
+        <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:12px;overflow:hidden;">
+          <div style="background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:10px 16px;">
+            <span style="font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">CART · OFFERS & SUMMARY</span>
+          </div>
+          <img src="images/tc-cart.jpg" alt="Tendercuts cart" style="width:100%;display:block;"/>
+        </div>
+
+        <!-- Payments -->
+        <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:12px;overflow:hidden;">
+          <div style="background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:10px 16px;">
+            <span style="font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">PAYMENTS · UPI · CARDS · WALLETS</span>
+          </div>
+          <img src="images/tc-payments.jpg" alt="Tendercuts payments screen" style="width:100%;display:block;"/>
+        </div>
+
+        <!-- Tracking -->
+        <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:12px;overflow:hidden;">
+          <div style="background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:10px 16px;">
+            <span style="font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">ORDER TRACKING · SELF-PICKUP</span>
+          </div>
+          <img src="images/tc-tracking.jpg" alt="Tendercuts self-pickup tracking" style="width:100%;display:block;"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Delivery Management Screenshots -->
+  <div style="width:100%;background:var(--black-3);border-bottom:1px solid var(--white-faint);padding:72px 64px;">
+    <div style="max-width:1200px;margin:0 auto;">
+
+      <div style="margin-bottom:48px;">
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Delivery Management · Web Dashboard</div>
+        <div style="font-size:22px;font-family:'Syne',sans-serif;font-weight:700;color:var(--white);line-height:1.3;">Live trips, routing & order dispatch</div>
+      </div>
+
+      <!-- Full-width: Live Trips dashboard — cropped to key area -->
+      <div style="margin-bottom:20px;background:var(--black-2);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--black-3);border-bottom:1px solid var(--white-faint);padding:12px 20px;display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:12px;font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">LIVE TRIPS · TRIP PLANNING & ACTIVE DRIVERS</span>
+        </div>
+        <div style="overflow:hidden;height:300px;">
+          <img src="images/tc-dm-trips.jpg" alt="Tendercuts delivery management live trips" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+
+      <!-- Live Orders table — cropped -->
+      <div style="background:var(--black-2);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--black-3);border-bottom:1px solid var(--white-faint);padding:12px 20px;display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:12px;font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">LIVE ORDERS · STATUS FILTERS & DISPATCH TABLE</span>
+        </div>
+        <div style="overflow:hidden;height:300px;">
+          <img src="images/tc-dm-orders.jpg" alt="Tendercuts live orders management" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Backend Admin Screenshots -->
+  <div style="width:100%;background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:72px 64px;">
+    <div style="max-width:1200px;margin:0 auto;">
+
+      <div style="margin-bottom:48px;">
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Backend Admin · Order Management</div>
+        <div style="font-size:22px;font-family:'Syne',sans-serif;font-weight:700;color:var(--white);line-height:1.3;">Scan orders, trip assignment & order detail</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+        <!-- Order detail modal — cropped -->
+        <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+          <div style="background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:12px 20px;display:flex;align-items:center;gap:8px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div>
+            <span style="margin-left:12px;font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">ORDER DETAIL · DELIVERY & PAYMENT INFO</span>
+          </div>
+          <div style="overflow:hidden;height:280px;">
+            <img src="images/tc-admin-detail.jpg" alt="Tendercuts backend order detail" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+          </div>
+        </div>
+
+        <!-- Expand all view — cropped -->
+        <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+          <div style="background:var(--black-2);border-bottom:1px solid var(--white-faint);padding:12px 20px;display:flex;align-items:center;gap:8px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div>
+            <span style="margin-left:12px;font-size:10px;color:var(--gold);letter-spacing:0.14em;font-weight:600;">SCAN ORDERS · EXPANDED TRIP VIEW</span>
+          </div>
+          <div style="overflow:hidden;height:280px;">
+            <img src="images/tc-admin-expand.jpg" alt="Tendercuts backend scan orders" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <section class="cs-section">
+    <div class="cs-section-tag">Project Timeline</div>
+    <h2 class="cs-section-title">How the redesign<br/>rolled out</h2>
+
+    <div class="cs-timeline">
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Phase 1</div>
+        <div>
+          <div class="cs-timeline-content-title">Audit, Research & Prioritisation</div>
+          <p class="cs-timeline-content-desc">6-week deep audit of all product surfaces. 20 customer interviews. Session recording analysis. Produced a prioritised friction map that became the redesign roadmap, signed off by product and business leadership.</p>
+        </div>
+      </div>
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Phase 2</div>
+        <div>
+          <div class="cs-timeline-content-title">Browse & Category Redesign</div>
+          <p class="cs-timeline-content-desc">Restructured the full product catalogue. Redesigned browse cards with delivery time and trust signals. Launched to 20% of users first. Measured browse-to-cart uplift. Rolled out to 100% after 2 weeks of positive data.</p>
+        </div>
+      </div>
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Phase 3</div>
+        <div>
+          <div class="cs-timeline-content-title">Product Detail Page Overhaul</div>
+          <p class="cs-timeline-content-desc">Rebuilt PDPs with visual cut guides, freshness badges, and nutritional info. Added side-cart drawer. Usability tested with 8 participants. Launched alongside browse redesign for cohesive experience.</p>
+        </div>
+      </div>
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Phase 4</div>
+        <div>
+          <div class="cs-timeline-content-title">Checkout & Reorder Redesign</div>
+          <p class="cs-timeline-content-desc">The highest-stakes phase. 7-step checkout collapsed to 4. Reorder tab launched to all users. Extensive QA with engineering. 2-week phased rollout. This phase alone accounted for the majority of the +40% order increase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Impact & Results</div>
+    <h2 class="cs-section-title">The numbers that<br/>earned the award</h2>
+    <p class="cs-body">Measured over 12 weeks post full redesign, compared to the equivalent prior-year period. Attributed to UX changes through controlled rollout.</p>
+
+    <div class="cs-results">
+      <div class="cs-result-item">
+        <span class="cs-result-num">+40%</span>
+        <span class="cs-result-label">Total order volume increase</span>
+      </div>
+      <div class="cs-result-item">
+        <span class="cs-result-num">−43%</span>
+        <span class="cs-result-label">Checkout steps eliminated</span>
+      </div>
+      <div class="cs-result-item">
+        <span class="cs-result-num">−38%</span>
+        <span class="cs-result-label">Reduction in search usage</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learnings -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Reflections</div>
+    <h2 class="cs-section-title">Leading design at scale —<br/>what I took away</h2>
+
+    <div class="cs-learnings">
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🎯</div>
+        <div class="cs-learning-text">
+          <strong>Friction is never one thing</strong>
+          The 40% order increase didn't come from one big fix. It came from 14 small friction removals working together. No single redesign element could have done it alone. Systematic diagnosis beats hero solutions.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🔁</div>
+        <div class="cs-learning-text">
+          <strong>Design for your most loyal users first</strong>
+          70% of orders came from repeats. We were over-investing in first-time-buyer flows and under-investing in loyalty. The reorder tab was built in a week and had outsized business impact. Know your core user deeply.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🛡️</div>
+        <div class="cs-learning-text">
+          <strong>Trust is architecture, not decoration</strong>
+          In high-sensitivity categories, trust signals need to be woven into every screen, not bolted onto a landing page. Customers make micro-trust decisions at every tap. Design that system explicitly or lose them silently.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">📐</div>
+        <div class="cs-learning-text">
+          <strong>Full product ownership changes how you design</strong>
+          Being responsible for the entire product — not just one feature — forced me to think in systems, not screens. Decisions in browse affected checkout. Checkout informed PDP. Everything was connected, and the design had to be too.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next -->
+  <div class="cs-next">
+    <div>
+      <p class="cs-next-label">Back to start</p>
+      <a href="aventum.html" class="cs-next-title">Aventum →<br/>Insurance SaaS 0→GTM</a>
+    </div>
+    <a href="aventum.html" class="cs-next-arrow">→</a>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    (function lerp() {
+      rx += (mx - rx) * 0.1;
+      ry += (my - ry) * 0.1;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(lerp);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = '60px'; ring.style.height = '60px'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = '38px'; ring.style.height = '38px'; });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.cs-section, .cs-insight-card, .cs-timeline-item, .cs-learning, .cs-result-item, .design-decision, .ba-card, .flow-node').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+      observer.observe(el);
+    });
+  
+    // Slot machine logo
+    (function () {
+      var L = document.getElementById('slotLeft');
+      var R = document.getElementById('slotRight');
+      if (!L || !R) return;
+      var H = 24, DUR = '0.65s', EASE = 'cubic-bezier(0.22, 1, 0.36, 1)', step = 0;
+      function slide(el, row) { el.style.transition = 'transform ' + DUR + ' ' + EASE; el.style.transform = 'translateY(' + -(row * H) + 'px)'; }
+      function snap(el, row)  { el.style.transition = 'none'; el.style.transform = 'translateY(' + -(row * H) + 'px)'; }
+      function tick() {
+        if (step === 0) { slide(R, 1); }
+        else if (step === 1) { slide(L, 2); }
+        else if (step === 2) {
+          slide(L, 3); setTimeout(function(){ slide(R, 3); }, 100);
+          setTimeout(function(){ snap(L, 0); snap(R, 0); }, 750);
+        }
+        step = (step + 1) % 3;
+      }
+      setTimeout(function(){ tick(); setInterval(tick, 2000); }, 2000);
+    })();
+</script>
+</body>
+</html>

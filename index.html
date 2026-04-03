@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charanjeet Singh — Senior Lead UX Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <!-- Navigation -->
+    <nav id="nav">
+        <a href="#" class="slot-logo" id="slotLogo" aria-label="CS">
+            <div class="slot-reel-wrap">
+                <div class="slot-reel" id="slotLeft">
+                    <span>C</span>
+                    <span>C</span>
+                    <span>U</span>
+                    <span>C</span>
+                </div>
+            </div>
+            <div class="slot-reel-wrap">
+                <div class="slot-reel" id="slotRight">
+                    <span>S</span>
+                    <span>X</span>
+                    <span>X</span>
+                    <span>S</span>
+                </div>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#work" class="nav-link">Work</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#ai" class="nav-link">AI</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ==============================
+         HERO
+    ============================== -->
+    <section id="hero">
+        <canvas id="hero-canvas"></canvas>
+
+        <div class="hero-content">
+            <p class="hero-pre">Senior Lead UX Designer &nbsp;·&nbsp; 14 Years</p>
+            <h1 class="hero-name">
+                <div class="line-wrap">
+                    <span class="name-line" id="name-line-1">
+                        <span class="name-letter" data-title="Conversion Design" data-desc="Turning intent into action. I obsess over the micro-moments that make users say yes.">C</span>
+                        <span class="name-letter" data-title="Heuristic Evaluation" data-desc="My systematic lens for catching usability issues before a single user ever sees the screen.">H</span>
+                        <span class="name-letter" data-title="Accessibility" data-desc="WCAG AA is the floor, not the ceiling. Great design works for every human, always.">A</span>
+                        <span class="name-letter" data-title="Research-First" data-desc="Every pixel is a decision. Every decision is rooted in user insight, not assumption.">R</span>
+                        <span class="name-letter" data-title="Affordance" data-desc="If it needs a label to explain it, the design isn't done yet. Intuition is the goal.">A</span>
+                        <span class="name-letter" data-title="Navigation & IA" data-desc="Information Architecture so clear, users never have to think about where to go next.">N</span>
+                        <span class="name-letter" data-title="Journey Mapping" data-desc="I map every touchpoint end-to-end — finding the hidden pain points that kill retention.">J</span>
+                        <span class="name-letter" data-title="Empathy Mapping" data-desc="Deep user empathy is my unfair advantage. I understand what users feel, not just what they do.">E</span>
+                        <span class="name-letter" data-title="Eye Tracking" data-desc="I design to direct attention. Every layout is a stage — I decide where the spotlight falls.">E</span>
+                        <span class="name-letter" data-title="Task Analysis" data-desc="Complex flows broken into frictionless steps. If it's hard to use, it isn't finished.">T</span>
+                    </span>
+                </div>
+                <div class="line-wrap">
+                    <span class="name-line" id="name-line-2">
+                        <span class="name-letter" data-title="Systems Thinking" data-desc="14 years, 100+ products — I build design systems that scale and never break.">S</span>
+                        <span class="name-letter" data-title="Information Architecture" data-desc="The invisible backbone of every great product. Structure that makes complex feel simple.">I</span>
+                        <span class="name-letter" data-title="Nudge Design" data-desc="Behavioral cues woven into the UI — guiding users to better decisions, effortlessly.">N</span>
+                        <span class="name-letter" data-title="Gestalt Principles" data-desc="The psychology of perception at my fingertips. How humans see meaning is how I design.">G</span>
+                        <span class="name-letter" data-title="Human-Centred Design" data-desc="14 years. 100+ products. 1000+ mentees. People first — every single time.">H</span>
+                    </span>
+                </div>
+            </h1>
+
+            <!-- Letter tooltip -->
+            <div class="letter-tooltip" id="letter-tooltip">
+                <span class="lt-title"></span>
+                <span class="lt-desc"></span>
+            </div>
+            <p class="hero-tagline">
+                Designing Experiences<br>
+                <em class="gold-text">That Move Millions</em>
+            </p>
+            <div class="hero-scroll-hint">
+                <span>Scroll to explore</span>
+                <div class="scroll-bar"></div>
+            </div>
+        </div>
+
+        <div class="hero-stats">
+            <div class="h-stat">
+                <span class="h-stat-num">14</span>
+                <span class="h-stat-label">Years Experience</span>
+            </div>
+            <div class="h-stat-divider"></div>
+            <div class="h-stat">
+                <span class="h-stat-num">100+</span>
+                <span class="h-stat-label">Products Delivered</span>
+            </div>
+            <div class="h-stat-divider"></div>
+            <div class="h-stat">
+                <span class="h-stat-num">1000+</span>
+                <span class="h-stat-label">Mentees Guided</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================
+         COMPANIES MARQUEE
+    ============================== -->
+    <div class="marquee-section">
+        <span class="marquee-label">Brands &amp; Products I've Shaped</span>
+        <div class="marquee-track-wrap">
+            <div class="marquee-track">
+                <span>Aventum</span><span class="marquee-dot">✦</span>
+                <span>Espire Infolabs</span><span class="marquee-dot">✦</span>
+                <span>Wealthzi</span><span class="marquee-dot">✦</span>
+                <span>Tendercuts</span><span class="marquee-dot">✦</span>
+                <span>Visu.ai</span><span class="marquee-dot">✦</span>
+                <span>Happy Chops</span><span class="marquee-dot">✦</span>
+                <span>Biomedomics</span><span class="marquee-dot">✦</span>
+                <span>DoxDiary</span><span class="marquee-dot">✦</span>
+                <span>Mega28</span><span class="marquee-dot">✦</span>
+                <span>Preset</span><span class="marquee-dot">✦</span>
+                <span>Budget Guru</span><span class="marquee-dot">✦</span>
+                <span>LEO Cards</span><span class="marquee-dot">✦</span>
+                <span>TROS Now</span><span class="marquee-dot">✦</span>
+                <span>KariKadai</span><span class="marquee-dot">✦</span>
+                <span>LUXE Credit</span><span class="marquee-dot">✦</span>
+                <span>Bartleby</span><span class="marquee-dot">✦</span>
+                <span>Learneo</span><span class="marquee-dot">✦</span>
+                <span>BrightChamps</span><span class="marquee-dot">✦</span>
+                <span>Calm Sleep</span><span class="marquee-dot">✦</span>
+                <span>Afinoz</span><span class="marquee-dot">✦</span>
+                <span>Buddy Cabs</span><span class="marquee-dot">✦</span>
+                <span>Gallant Play</span><span class="marquee-dot">✦</span>
+                <span>Monk Trader</span><span class="marquee-dot">✦</span>
+                <span>Finculators</span><span class="marquee-dot">✦</span>
+                <span>Budget.AI</span><span class="marquee-dot">✦</span>
+                <span>Meatlane</span><span class="marquee-dot">✦</span>
+                <span>SayHey</span><span class="marquee-dot">✦</span>
+                <!-- duplicate for seamless loop -->
+                <span>Aventum</span><span class="marquee-dot">✦</span>
+                <span>Espire Infolabs</span><span class="marquee-dot">✦</span>
+                <span>Wealthzi</span><span class="marquee-dot">✦</span>
+                <span>Tendercuts</span><span class="marquee-dot">✦</span>
+                <span>Visu.ai</span><span class="marquee-dot">✦</span>
+                <span>Happy Chops</span><span class="marquee-dot">✦</span>
+                <span>Biomedomics</span><span class="marquee-dot">✦</span>
+                <span>DoxDiary</span><span class="marquee-dot">✦</span>
+                <span>Mega28</span><span class="marquee-dot">✦</span>
+                <span>Preset</span><span class="marquee-dot">✦</span>
+                <span>Budget Guru</span><span class="marquee-dot">✦</span>
+                <span>LEO Cards</span><span class="marquee-dot">✦</span>
+                <span>TROS Now</span><span class="marquee-dot">✦</span>
+                <span>KariKadai</span><span class="marquee-dot">✦</span>
+                <span>LUXE Credit</span><span class="marquee-dot">✦</span>
+                <span>Bartleby</span><span class="marquee-dot">✦</span>
+                <span>Learneo</span><span class="marquee-dot">✦</span>
+                <span>BrightChamps</span><span class="marquee-dot">✦</span>
+                <span>Calm Sleep</span><span class="marquee-dot">✦</span>
+                <span>Afinoz</span><span class="marquee-dot">✦</span>
+                <span>Buddy Cabs</span><span class="marquee-dot">✦</span>
+                <span>Gallant Play</span><span class="marquee-dot">✦</span>
+                <span>Monk Trader</span><span class="marquee-dot">✦</span>
+                <span>Finculators</span><span class="marquee-dot">✦</span>
+                <span>Budget.AI</span><span class="marquee-dot">✦</span>
+                <span>Meatlane</span><span class="marquee-dot">✦</span>
+                <span>SayHey</span><span class="marquee-dot">✦</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================
+         WORK
+    ============================== -->
+    <section id="work">
+        <div class="work-header">
+            <p class="section-tag">Selected Work</p>
+            <h2 class="section-title">The best of 100+.<br>The work that moved the needle.</h2>
+        </div>
+
+        <!-- Project 01 — Aventum -->
+        <div class="project-card" id="card-01">
+            <div class="project-glow" aria-hidden="true"></div>
+            <div class="project-body">
+                <div class="project-left">
+                    <span class="project-num">01</span>
+                    <span class="project-industry">Insurance · SaaS</span>
+                </div>
+                <div class="project-center">
+                    <h3 class="project-name">Aventum</h3>
+                    <p class="project-desc">Architected the entire SaaS product experience from zero. Established design language, design systems, core flows, and product strategy — everything a bold new insurance platform needed to go from idea to market.</p>
+                    <div class="project-tags">
+                        <span class="ptag">Design System</span>
+                        <span class="ptag">SaaS</span>
+                        <span class="ptag">0 → GTM</span>
+                    </div>
+                </div>
+                <div class="project-right">
+                    <div class="project-metric">
+                        <span class="metric-val">0 → GTM</span>
+                        <span class="metric-key">Full Product Build</span>
+                    </div>
+                    <a href="aventum.html" class="project-cta">View Case Study <span class="cta-arrow">→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 02 — BrightChamps -->
+        <div class="project-card" id="card-02">
+            <div class="project-glow" aria-hidden="true"></div>
+            <div class="project-body">
+                <div class="project-left">
+                    <span class="project-num">02</span>
+                    <span class="project-industry">EdTech · Growth</span>
+                </div>
+                <div class="project-center">
+                    <h3 class="project-name">BrightChamps</h3>
+                    <p class="project-desc">Redesigned high-performance landing pages for a fast-scaling ed-tech platform. Obsessed over every scroll depth, fold hierarchy, and CTA placement — until the conversion numbers moved decisively.</p>
+                    <div class="project-tags">
+                        <span class="ptag">Conversion Design</span>
+                        <span class="ptag">Landing Pages</span>
+                        <span class="ptag">Growth</span>
+                    </div>
+                </div>
+                <div class="project-right">
+                    <div class="project-metric">
+                        <span class="metric-val">+30%</span>
+                        <span class="metric-key">Conversion Uplift</span>
+                    </div>
+                    <a href="brightchamps.html" class="project-cta">View Case Study <span class="cta-arrow">→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 03 — Tendercuts -->
+        <div class="project-card" id="card-03">
+            <div class="project-glow" aria-hidden="true"></div>
+            <div class="project-body">
+                <div class="project-left">
+                    <span class="project-num">03</span>
+                    <span class="project-industry">E-Commerce · Leadership</span>
+                </div>
+                <div class="project-center">
+                    <h3 class="project-name">Tendercuts</h3>
+                    <p class="project-desc">Led the entire product design function end-to-end. Streamlined every touchpoint — browse, product detail, cart, checkout — into a coherent, frictionless experience that customers actually wanted to use again.</p>
+                    <div class="project-tags">
+                        <span class="ptag">Product Leadership</span>
+                        <span class="ptag">E-Commerce UX</span>
+                        <span class="ptag">Flow Optimization</span>
+                    </div>
+                </div>
+                <div class="project-right">
+                    <div class="project-metric">
+                        <span class="metric-val">+40%</span>
+                        <span class="metric-key">Order Volume</span>
+                    </div>
+                    <a href="tendercuts.html" class="project-cta">View Case Study <span class="cta-arrow">→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 04 — Visu.ai -->
+        <div class="project-card" id="card-04">
+            <div class="project-glow" aria-hidden="true"></div>
+            <div class="project-body">
+                <div class="project-left">
+                    <span class="project-num">04</span>
+                    <span class="project-industry">AI · Retail Security</span>
+                </div>
+                <div class="project-center">
+                    <h3 class="project-name">Visu.ai</h3>
+                    <p class="project-desc">Consulted on a UK-based AI retail security platform — designing both the web dashboard and mobile app. The product uses computer vision to detect theft and cashier fraud in real time, surfacing incidents through cameras so store owners can review, act, and report instantly.</p>
+                    <div class="project-tags">
+                        <span class="ptag">Consultant</span>
+                        <span class="ptag">AI Platform</span>
+                        <span class="ptag">Web &amp; Mobile</span>
+                    </div>
+                </div>
+                <div class="project-right">
+                    <div class="project-metric">
+                        <span class="metric-val">UK</span>
+                        <span class="metric-key">Consulting Project</span>
+                    </div>
+                    <a href="visuai.html" class="project-cta">View Case Study <span class="cta-arrow">→</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================
+         ABOUT
+    ============================== -->
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-visual-col">
+                <div class="about-geo-wrap">
+                    <canvas id="about-canvas"></canvas>
+                    <div class="about-photo-frame">
+                        <img src="images/charanjeetsingh.jpg" alt="Charanjeet Singh" class="about-photo">
+                    </div>
+                </div>
+            </div>
+            <div class="about-text-col">
+                <p class="section-tag">About</p>
+                <h2 class="about-heading">I design for humans,<br>not screens.</h2>
+                <p class="about-body">With 14 years navigating the full spectrum of product design — from zero-to-one SaaS builds to high-stakes e-commerce — I've learned that the best design is invisible. It's the moment a user feels completely understood, before they even know why.</p>
+                <p class="about-body">I bring the same obsessive precision to a hover state as I do to a product strategy. I've shipped over 100 products, led cross-functional teams, and never stopped sweating the details.</p>
+                <div class="about-skills">
+                    <span class="skill-tag">UX Strategy</span>
+                    <span class="skill-tag">Design Systems</span>
+                    <span class="skill-tag">Product Leadership</span>
+                    <span class="skill-tag">User Research</span>
+                    <span class="skill-tag">Conversion Design</span>
+                    <span class="skill-tag">SaaS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================
+         IMPACT
+    ============================== -->
+    <section id="impact">
+        <div class="impact-inner">
+            <div class="impact-num-wrap">
+                <span class="impact-num" id="mentee-count">1,000+</span>
+            </div>
+            <div class="impact-text-wrap">
+                <h2 class="impact-heading">Designers<br>Mentored</h2>
+                <p class="impact-body">Building the next generation of UX practitioners — through 1:1 mentorship, workshops, and community. Because great design multiplies when shared.</p>
+            </div>
+        </div>
+        <div class="impact-bg-text" aria-hidden="true">IMPACT</div>
+    </section>
+
+    <!-- ==============================
+         AI SECTION
+    ============================== -->
+    <section id="ai">
+        <div class="ai-inner">
+            <div class="ai-header">
+                <p class="section-tag">AI & Design</p>
+                <h2 class="ai-heading">I don't just use AI.<br>I <em class="gold-text">think</em> with it.</h2>
+                <p class="ai-subhead">AI isn't replacing designers. It's replacing designers who don't use AI. I'm not that designer.</p>
+            </div>
+
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <div class="ai-card-icon">⚡</div>
+                    <h3 class="ai-card-title">10× Research Speed</h3>
+                    <p class="ai-card-desc">I use AI to synthesize user interviews, extract patterns from transcripts, and generate empathy maps in minutes — not days.</p>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-card-icon">🧠</div>
+                    <h3 class="ai-card-title">AI-Assisted Ideation</h3>
+                    <p class="ai-card-desc">From divergent brainstorming to concept validation — I use LLMs as a creative sparring partner that never runs out of ideas.</p>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-card-icon">🎨</div>
+                    <h3 class="ai-card-title">Generative Visuals</h3>
+                    <p class="ai-card-desc">Midjourney, Stable Diffusion, and Firefly live in my moodboarding workflow. Concepts that used to take a week, ship in an afternoon.</p>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-card-icon">🔁</div>
+                    <h3 class="ai-card-title">Automated Handoffs</h3>
+                    <p class="ai-card-desc">AI-powered copy generation, design token suggestions, and annotation — I've cut handoff time by 60% across my last 3 products.</p>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-card-icon">📊</div>
+                    <h3 class="ai-card-title">Data-Driven UX</h3>
+                    <p class="ai-card-desc">I use AI to parse analytics, predict drop-off, and surface insights from heatmaps — turning data noise into design decisions.</p>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-card-icon">🚀</div>
+                    <h3 class="ai-card-title">Prototyping at Speed</h3>
+                    <p class="ai-card-desc">Claude, ChatGPT, and Cursor help me prototype interactions and write micro-copy in real-time — shipping ideas before they go cold.</p>
+                </div>
+            </div>
+
+            <div class="ai-tools-wrap">
+                <span class="ai-tool-label">Daily Stack</span>
+                <div class="ai-tools-marquee">
+                    <div class="ai-tools-track">
+                        <span class="ai-tool">Claude</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">ChatGPT</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Midjourney</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Firefly</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Cursor</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Perplexity</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Runway</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Gemini</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Sora</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Kling AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">v0</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Galileo AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Uizard</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Framer AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Notion AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Luma AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">ElevenLabs</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Otter.ai</span><span class="ai-tool-dot">✦</span>
+                        <!-- duplicate for loop -->
+                        <span class="ai-tool">Claude</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">ChatGPT</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Midjourney</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Firefly</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Cursor</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Perplexity</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Runway</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Gemini</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Sora</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Kling AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">v0</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Galileo AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Uizard</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Framer AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Notion AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Luma AI</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">ElevenLabs</span><span class="ai-tool-dot">✦</span>
+                        <span class="ai-tool">Otter.ai</span><span class="ai-tool-dot">✦</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ai-bg-text" aria-hidden="true">AI</div>
+    </section>
+
+    <!-- ==============================
+         AWARDS
+    ============================== -->
+    <section id="awards">
+        <p class="section-tag">Recognition</p>
+        <h2 class="section-title">Awards & Press</h2>
+        <div class="awards-list">
+            <div class="award-row">
+                <span class="award-icon">🏆</span>
+                <span class="award-year">2024</span>
+                <span class="award-name">Customer Experience Champion</span>
+                <span class="award-org">Aventum</span>
+            </div>
+            <div class="award-row">
+                <span class="award-icon">⭐</span>
+                <span class="award-year">2023</span>
+                <span class="award-name">Best Performing Person of the Year</span>
+                <span class="award-org">Tendercuts</span>
+            </div>
+            <div class="award-row">
+                <span class="award-icon">🎖️</span>
+                <span class="award-year">2019 – 2024</span>
+                <span class="award-name">Employee of the Month <span class="award-count">× Multiple</span></span>
+                <span class="award-org">Various Organizations</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================
+         CONTACT
+    ============================== -->
+    <section id="contact">
+        <div class="contact-inner">
+            <p class="section-tag">Let's Work Together</p>
+            <h2 class="contact-heading">Have a project<br>worth building?</h2>
+            <a href="mailto:singhcharranjeet@gmail.com" class="contact-btn">
+                <span class="btn-text">Get In Touch</span>
+                <span class="btn-arrow">→</span>
+            </a>
+            <div class="contact-actions">
+                <a href="cv/charanjeet-singh-cv.pdf" download class="download-cv-btn">
+                    <span>Download CV</span>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 1v8M3.5 6.5L7 10l3.5-3.5M2 13h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="tel:+919999184623" class="contact-phone">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2h3l1.5 3.5-1.5 1a8 8 0 003.5 3.5l1-1.5L13 10v3a1 1 0 01-1 1A11 11 0 011 3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>+91 9999 184 623</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scrolling marquee links -->
+    <div class="marquee-strip">
+        <div class="marquee-track">
+            <a href="https://www.linkedin.com/in/uxcharan/" target="_blank" rel="noopener" class="marquee-link">LinkedIn</a>
+            <span class="marquee-sep">✦</span>
+            <a href="https://www.youtube.com/@uxwalebhaiya" target="_blank" rel="noopener" class="marquee-link">YouTube</a>
+            <span class="marquee-sep">✦</span>
+            <a href="https://www.figma.com/design/U4mL53ZXSDNbUvV8MVOR8V/Charanjeet-Projects?m=auto&t=cOZPpP3v2TyOHSzx-6" target="_blank" rel="noopener" class="marquee-link">Messy Figma File</a>
+            <span class="marquee-sep">✦</span>
+            <a href="mailto:singhcharranjeet@gmail.com" class="marquee-link">singhcharranjeet@gmail.com</a>
+            <span class="marquee-sep">✦</span>
+            <a href="tel:+919999184623" class="marquee-link">+91 9999 184 623</a>
+            <span class="marquee-sep">✦</span>
+            <!-- duplicate for seamless loop -->
+            <a href="https://www.linkedin.com/in/uxcharan/" target="_blank" rel="noopener" class="marquee-link">LinkedIn</a>
+            <span class="marquee-sep">✦</span>
+            <a href="https://www.youtube.com/@uxwalebhaiya" target="_blank" rel="noopener" class="marquee-link">YouTube</a>
+            <span class="marquee-sep">✦</span>
+            <a href="https://www.figma.com/design/U4mL53ZXSDNbUvV8MVOR8V/Charanjeet-Projects?m=auto&t=cOZPpP3v2TyOHSzx-6" target="_blank" rel="noopener" class="marquee-link">Messy Figma File</a>
+            <span class="marquee-sep">✦</span>
+            <a href="mailto:singhcharranjeet@gmail.com" class="marquee-link">singhcharranjeet@gmail.com</a>
+            <span class="marquee-sep">✦</span>
+            <a href="tel:+919999184623" class="marquee-link">+91 9999 184 623</a>
+            <span class="marquee-sep">✦</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <span>© 2024 Charanjeet Singh</span>
+        <span class="footer-detail">Designed with obsessive detail.</span>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

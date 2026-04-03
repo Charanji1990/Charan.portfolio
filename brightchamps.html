@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrightChamps — Case Study · Charanjeet Singh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+  <style>
+    .tag-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      border: 1px solid var(--gold-border);
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-faint);
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .problem-block {
+      padding: 40px 48px;
+      border: 1px solid var(--gold-border);
+      border-radius: 3px;
+      background: var(--gold-faint);
+      margin-top: 40px;
+    }
+    .problem-block h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .problem-block p {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--white);
+    }
+    .cs-highlight { color: var(--gold); font-weight: 500; }
+
+    .hypothesis-list {
+      list-style: none;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hypothesis-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      border: 1px solid var(--white-faint);
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--white-dim);
+      transition: border-color .3s;
+    }
+    .hypothesis-list li:hover { border-color: var(--gold-border); }
+    .hypothesis-list li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .design-decision {
+      padding: 28px 32px;
+      border-left: 2px solid var(--gold);
+      background: rgba(201,168,76,0.03);
+      margin-bottom: 16px;
+      border-radius: 0 3px 3px 0;
+    }
+    .design-decision h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .design-decision p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--white-dim);
+    }
+    .ab-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 48px;
+      border: 1px solid var(--gold-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .ab-table th {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 20px 24px;
+      text-align: left;
+      background: rgba(201,168,76,0.06);
+      border-bottom: 1px solid var(--gold-border);
+    }
+    .ab-table td {
+      padding: 16px 24px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--white-dim);
+      border-bottom: 1px solid var(--white-faint);
+      line-height: 1.6;
+    }
+    .ab-table tr:last-child td { border-bottom: none; }
+    .ab-table td:first-child { color: var(--white); font-weight: 500; }
+    .win-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid var(--gold-border);
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .cs-full-mockup {
+      width: calc(100% + 128px);
+      margin-left: -64px;
+      border-top: 1px solid var(--white-faint);
+      border-bottom: 1px solid var(--white-faint);
+      background: var(--black-2);
+      padding: 80px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .mini-screen {
+      border: 1px solid var(--gold-border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--black-3);
+    }
+    .mini-screen-bar {
+      padding: 10px 14px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      border-bottom: 1px solid var(--white-faint);
+      background: var(--black-2);
+    }
+    .mini-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .mini-dot:nth-child(1) { background: #FF5F57; }
+    .mini-dot:nth-child(2) { background: #FEBC2E; }
+    .mini-dot:nth-child(3) { background: #28C840; }
+    .mini-screen-body {
+      padding: 28px 24px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .mini-screen-icon { font-size: 28px; opacity: 0.5; }
+    .mini-screen-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+    }
+    @media (max-width: 1024px) {
+      .cs-full-mockup { width: 100%; margin-left: 0; padding: 60px 40px; grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .cs-full-mockup { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Nav -->
+  <nav class="cs-nav">
+    <a href="index.html" class="slot-logo" id="slotLogo" aria-label="CS">
+      <div class="slot-reel-wrap">
+        <div class="slot-reel" id="slotLeft">
+          <span>C</span><span>C</span><span>U</span><span>C</span>
+        </div>
+      </div>
+      <div class="slot-reel-wrap">
+        <div class="slot-reel" id="slotRight">
+          <span>S</span><span>X</span><span>X</span><span>S</span>
+        </div>
+      </div>
+    </a>
+    <a href="index.html#work" class="cs-nav-back">← Back to Work</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="cs-hero">
+    <div class="cs-hero-bg"></div>
+    <div class="cs-hero-bg-text">BRIGHT</div>
+
+    <div class="cs-hero-content">
+      <div class="cs-hero-tag">Case Study · 02</div>
+
+      <h1 class="cs-hero-title">
+        BrightChamps<br/>EdTech Landing
+      </h1>
+
+      <div style="margin-bottom: 40px;">
+        <span class="tag-pill">EdTech</span>
+        <span class="tag-pill">Conversion Optimisation</span>
+        <span class="tag-pill">Landing Pages</span>
+        <span class="tag-pill">A/B Testing</span>
+      </div>
+
+      <div class="cs-hero-meta">
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">My Role</span>
+          <span class="cs-hero-meta-value">UX Designer · CRO Lead</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Platform</span>
+          <span class="cs-hero-meta-value">Web · Mobile Web</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Market</span>
+          <span class="cs-hero-meta-value">India · SEA · US</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Outcome</span>
+          <span class="cs-hero-meta-value">+30% Conversion Rate</span>
+        </div>
+      </div>
+
+      <div class="cs-hero-impact">
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">+30%</span>
+          <span class="cs-impact-label">Conversion uplift</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">8</span>
+          <span class="cs-impact-label">Landing pages redesigned</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">3</span>
+          <span class="cs-impact-label">Markets optimised</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">12+</span>
+          <span class="cs-impact-label">A/B tests run</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Overview</div>
+    <h2 class="cs-section-title">Designing for<br/>the most important click</h2>
+    <p class="cs-body">
+      BrightChamps is one of Asia's fastest-growing EdTech platforms — teaching Coding, Robotics, Financial Literacy, Gen AI, Math, English, and Science to kids aged 6–16 across India, Indonesia, Saudi Arabia, and the US. With millions in marketing spend driving traffic to landing pages every month, even a 1% conversion improvement meant significant revenue. The pressure was very real.
+    </p>
+    <p class="cs-body" style="margin-top: 20px;">
+      When I took on this project, the existing landing pages were built for volume — fast to ship, not optimised for conversion. The UX was generic, the messaging was broad, and the journey from landing to purchase had too many friction points. My mandate: redesign the high-performing pages, run structured A/B tests, and measurably improve conversion across all four key markets.
+    </p>
+
+    <div class="problem-block">
+      <h3>The Core Problem</h3>
+      <p>Parents landing on BrightChamps pages were interested but unconvinced. The pages had decent traffic but low trust signals, unclear value propositions, and a checkout flow that created hesitation. <span class="cs-highlight">Visitors were leaving at the moment of decision — not the moment of discovery.</span></p>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Design Process</div>
+    <h2 class="cs-section-title">A data-first approach<br/>to design decisions</h2>
+
+    <div class="cs-process">
+      <div class="cs-process-step">
+        <span class="cs-process-num">01</span>
+        <div class="cs-process-name">Conversion Audit</div>
+        <p class="cs-process-desc">Full funnel analysis using Hotjar, GA4, and session recordings. Identified drop-off points, rage clicks, and hesitation moments across all pages.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">02</span>
+        <div class="cs-process-name">Parent Research</div>
+        <p class="cs-process-desc">15 depth interviews with target parents (India, SEA, US). Uncovered their key anxieties, trust triggers, and the mental model they used to evaluate EdTech products for kids.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">03</span>
+        <div class="cs-process-name">Hypothesis Framework</div>
+        <p class="cs-process-desc">Built a prioritised hypothesis backlog using ICE scoring (Impact, Confidence, Ease). 22 hypotheses, narrowed to 12 A/B tests based on potential conversion impact.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">04</span>
+        <div class="cs-process-name">Design & Test</div>
+        <p class="cs-process-desc">Rapid variant design in Figma. Implemented via VWO. Each test ran for 2–3 weeks to statistical significance. Iterated winners into the base design.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">05</span>
+        <div class="cs-process-name">Roll Out & Monitor</div>
+        <p class="cs-process-desc">Winning variants baked into full page redesigns. Launched across 3 markets with localisation adaptations. Continuous monitoring for 8 weeks post-launch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Research Insights</div>
+    <h2 class="cs-section-title">What parents<br/>really needed to say yes</h2>
+
+    <div class="cs-insights">
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 01</span>
+        <div class="cs-insight-title">Trust is the #1 purchase driver</div>
+        <p class="cs-insight-body">Parents weren't buying a course — they were trusting a company with their child's screen time. Peer reviews, instructor credentials, and real student outcomes mattered more than any feature list.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 02</span>
+        <div class="cs-insight-title">Price anxiety peaks at checkout</div>
+        <p class="cs-insight-body">Heatmaps showed users scrolling to the price section multiple times before acting. The price wasn't too high — the perceived value wasn't clear enough to justify it confidently.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 03</span>
+        <div class="cs-insight-title">Kids are the real decision influencers</div>
+        <p class="cs-insight-body">Parents often made the financial decision but kids validated it. Pages showing child-friendly content, fun learning visuals, and peer success stories saw higher "trial class" sign-ups.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 04</span>
+        <div class="cs-insight-title">Free trial CTA massively outperformed "Buy Now"</div>
+        <p class="cs-insight-body">The commitment gap was too large for a first visit. "Book a Free Trial Class" reduced friction by letting parents experience before investing. This became the primary CTA across all pages.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 05</span>
+        <div class="cs-insight-title">Market-specific trust signals matter</div>
+        <p class="cs-insight-body">Indian parents responded to "CBSE/ICSE curriculum aligned" and parent testimonials. SEA parents wanted "teacher credentials". US parents prioritised "cancel anytime" and money-back guarantees. One page couldn't serve all three.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 06</span>
+        <div class="cs-insight-title">Mobile UX was the real problem</div>
+        <p class="cs-insight-body">62% of traffic was mobile. The existing pages were desktop-first designs crammed into smaller screens. Form fields were too small, CTAs were below the fold, and checkout had too many steps on mobile.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- A/B Tests -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Testing</div>
+    <h2 class="cs-section-title">Key A/B tests<br/>that moved the needle</h2>
+    <p class="cs-body">Not all tests win — and that's the point. Here are the most impactful experiments that shaped the final designs.</p>
+
+    <table class="ab-table">
+      <thead>
+        <tr>
+          <th>Test</th>
+          <th>Control</th>
+          <th>Variant</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Primary CTA</td>
+          <td>"Enroll Now" button</td>
+          <td>"Book a Free Trial Class" button</td>
+          <td><span class="win-badge">+22% CTR</span></td>
+        </tr>
+        <tr>
+          <td>Hero Section</td>
+          <td>Generic illustration</td>
+          <td>Real student photo + outcome badge</td>
+          <td><span class="win-badge">+14% scroll depth</span></td>
+        </tr>
+        <tr>
+          <td>Social Proof</td>
+          <td>Star rating widget</td>
+          <td>Video testimonial from parent</td>
+          <td><span class="win-badge">+18% form starts</span></td>
+        </tr>
+        <tr>
+          <td>Pricing Display</td>
+          <td>Monthly price only</td>
+          <td>Per-class price + total value breakdown</td>
+          <td><span class="win-badge">+9% checkout rate</span></td>
+        </tr>
+        <tr>
+          <td>Mobile Form</td>
+          <td>3-step form on single page</td>
+          <td>Step-by-step modal form</td>
+          <td><span class="win-badge">+31% completion</span></td>
+        </tr>
+        <tr>
+          <td>Urgency Signal</td>
+          <td>No urgency indicator</td>
+          <td>"Only 2 slots left this week"</td>
+          <td>No significant change (dropped)</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Design Decisions -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Design Decisions</div>
+    <h2 class="cs-section-title">How we redesigned<br/>for conversion</h2>
+
+    <div class="cs-two-col" style="margin-top: 48px; gap: 60px;">
+      <div>
+        <div class="design-decision">
+          <h4>Outcome-first hero section</h4>
+          <p>Replaced generic illustrations with real student outcomes ("Aryan, 10, built his first app in 4 weeks"). Parents bought outcomes for their children, not features. Showing the destination drove scroll depth by 14%.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Progressive commitment model</h4>
+          <p>Redesigned the entire funnel around a free trial class as the primary conversion goal. This reduced the commitment from ₹15,000 to zero, then nurtured enrolled trial users to paid. Dramatically improved top-of-funnel numbers.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Mobile-first form redesign</h4>
+          <p>Converted the 3-field inline form into a step-by-step modal with progress indicators. Each step had one decision. Form completion on mobile jumped 31% — the single biggest conversion win of the project.</p>
+        </div>
+      </div>
+      <div>
+        <div class="design-decision">
+          <h4>Trust architecture</h4>
+          <p>Built a systematic "trust stack" — live class count, instructor credentials, parent video reviews, money-back guarantee, and curriculum badges — arranged by the sequence in which parents needed reassurance.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Market-specific page variants</h4>
+          <p>Designed distinct hero messaging and trust signal hierarchies for India, SEA, and US. India page led with curriculum alignment; US page led with "cancel anytime" guarantee. Same product, different conversion triggers.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Price anchoring with value framing</h4>
+          <p>Reframed pricing from "₹X/month" to "₹X per class — less than a pizza" with a breakdown of what's included. The absolute price didn't change. The perceived value did. Checkout rate improved by 9%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section style="padding: 0 64px;">
+    <div class="cs-quote">
+      <p class="cs-quote-text">"Conversion is not about tricks or urgency tactics. It's about understanding exactly where in the decision journey your user is stuck — and removing that specific obstacle. The rest is just noise."</p>
+      <span class="cs-quote-attr">Design philosophy applied across BrightChamps</span>
+    </div>
+  </section>
+
+  <!-- Screens Gallery — all unique, no repeats -->
+  <div style="width:100%;background:var(--black-2);border-top:1px solid var(--white-faint);border-bottom:1px solid var(--white-faint);padding:64px;">
+
+    <!-- R1: Full-width live hero -->
+    <div style="margin-bottom:16px;">
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:12px 16px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div>
+          <div style="flex:1;height:22px;background:rgba(245,243,238,0.06);border-radius:4px;margin:0 12px;display:flex;align-items:center;padding:0 10px;">
+            <span style="font-size:10px;color:#555;letter-spacing:.06em;">brightchamps.com</span>
+          </div>
+          <span style="font-size:9px;color:var(--gold);letter-spacing:.12em;font-weight:600;">LIVE HOMEPAGE · HERO — +22% CTR ON FREE TRIAL CTA</span>
+        </div>
+        <div style="overflow:hidden;height:340px;">
+          <img src="images/bc-hero.jpg" alt="BrightChamps homepage hero" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- R2: 2-col — Figma landing page designs -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 16px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#FF5F57;"></div><div style="width:8px;height:8px;border-radius:50%;background:#FEBC2E;"></div><div style="width:8px;height:8px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:8px;font-size:9px;color:var(--gold);letter-spacing:.12em;font-weight:600;">FIGMA · CAMPAIGN LANDING PAGE</span>
+        </div>
+        <div style="overflow:hidden;height:280px;">
+          <img src="images/bc-landing-full.jpg" alt="BrightChamps campaign landing page" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 16px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#FF5F57;"></div><div style="width:8px;height:8px;border-radius:50%;background:#FEBC2E;"></div><div style="width:8px;height:8px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:8px;font-size:9px;color:var(--gold);letter-spacing:.12em;font-weight:600;">FIGMA · CURRICULUM & PILLARS PAGE</span>
+        </div>
+        <div style="overflow:hidden;height:280px;">
+          <img src="images/bc-landing-full2.jpg" alt="BrightChamps curriculum page" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- R3: 3-col — live site: why, course tabs, student spotlight -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 14px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:6px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF5F57;"></div><div style="width:7px;height:7px;border-radius:50%;background:#FEBC2E;"></div><div style="width:7px;height:7px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:6px;font-size:9px;color:var(--gold);letter-spacing:.1em;font-weight:600;">LIVE · WHY BRIGHTCHAMPS</span>
+        </div>
+        <div style="overflow:hidden;height:250px;">
+          <img src="images/bc-futurecurriculum.jpg" alt="Why BrightChamps future curriculum" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 14px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:6px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF5F57;"></div><div style="width:7px;height:7px;border-radius:50%;background:#FEBC2E;"></div><div style="width:7px;height:7px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:6px;font-size:9px;color:var(--gold);letter-spacing:.1em;font-weight:600;">LIVE · CHOOSE YOUR COURSE</span>
+        </div>
+        <div style="overflow:hidden;height:250px;">
+          <img src="images/bc-choosecourse.jpg" alt="Choose your course with grade tabs" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 14px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:6px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF5F57;"></div><div style="width:7px;height:7px;border-radius:50%;background:#FEBC2E;"></div><div style="width:7px;height:7px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:6px;font-size:9px;color:var(--gold);letter-spacing:.1em;font-weight:600;">LIVE · STUDENT SPOTLIGHT</span>
+        </div>
+        <div style="overflow:hidden;height:250px;">
+          <img src="images/bc-studentspotlight.jpg" alt="Student spotlight testimonials" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- R4: full-width — teachers / guiding stars -->
+    <div style="margin-bottom:16px;">
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 16px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#FF5F57;"></div><div style="width:8px;height:8px;border-radius:50%;background:#FEBC2E;"></div><div style="width:8px;height:8px;border-radius:50%;background:#28C840;"></div>
+          <div style="flex:1;height:22px;background:rgba(245,243,238,0.06);border-radius:4px;margin:0 12px;display:flex;align-items:center;padding:0 10px;">
+            <span style="font-size:10px;color:#555;letter-spacing:.06em;">brightchamps.com</span>
+          </div>
+          <span style="font-size:9px;color:var(--gold);letter-spacing:.12em;font-weight:600;">LIVE · OUR TEAM OF EDUCATORS — GUIDING STARS</span>
+        </div>
+        <div style="overflow:hidden;height:300px;">
+          <img src="images/bc-teachers.jpg" alt="BrightChamps team of educators" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- R5: 3-col — skills grid, how it works, exclusive access -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 14px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:6px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF5F57;"></div><div style="width:7px;height:7px;border-radius:50%;background:#FEBC2E;"></div><div style="width:7px;height:7px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:6px;font-size:9px;color:var(--gold);letter-spacing:.1em;font-weight:600;">LIVE · SKILLS FOR SUCCESS</span>
+        </div>
+        <div style="overflow:hidden;height:240px;">
+          <img src="images/bc-subjectcards.jpg" alt="Skills for success subject grid" style="width:100%;display:block;object-fit:cover;object-position:center 20%;"/>
+        </div>
+      </div>
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 14px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:6px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF5F57;"></div><div style="width:7px;height:7px;border-radius:50%;background:#FEBC2E;"></div><div style="width:7px;height:7px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:6px;font-size:9px;color:var(--gold);letter-spacing:.1em;font-weight:600;">LIVE · HOW IT WORKS · 4 STEPS</span>
+        </div>
+        <div style="overflow:hidden;height:240px;">
+          <img src="images/bc-howitworks-live.jpg" alt="How it works 4 steps" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 14px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:6px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF5F57;"></div><div style="width:7px;height:7px;border-radius:50%;background:#FEBC2E;"></div><div style="width:7px;height:7px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:6px;font-size:9px;color:var(--gold);letter-spacing:.1em;font-weight:600;">LIVE · EXCLUSIVE ACCESS</span>
+        </div>
+        <div style="overflow:hidden;height:240px;">
+          <img src="images/bc-exclusiveaccess.jpg" alt="Exclusive access section" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- R6: mobile + stats -->
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px;align-items:start;">
+      <div style="background:var(--black-3);border:1px solid var(--gold-border);border-radius:8px;overflow:hidden;">
+        <div style="padding:10px 16px;background:var(--black-2);border-bottom:1px solid var(--white-faint);display:flex;align-items:center;gap:6px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF5F57;"></div><div style="width:7px;height:7px;border-radius:50%;background:#FEBC2E;"></div><div style="width:7px;height:7px;border-radius:50%;background:#28C840;"></div>
+          <span style="margin-left:6px;font-size:9px;color:var(--gold);letter-spacing:.12em;font-weight:600;">MOBILE · 390px · +31% FORM COMPLETION</span>
+        </div>
+        <div style="overflow:hidden;height:540px;">
+          <img src="images/bc-mobile.jpg" alt="BrightChamps mobile responsive" style="width:100%;display:block;object-fit:cover;object-position:top;"/>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;padding:8px 0;">
+        <div style="padding:32px 36px;border:1px solid var(--gold-border);border-radius:8px;background:var(--gold-faint);">
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Mobile-first approach</div>
+          <div style="font-size:42px;font-family:'Syne',sans-serif;font-weight:800;color:var(--white);line-height:1;">68%</div>
+          <div style="font-size:14px;font-weight:300;color:var(--white-dim);margin-top:8px;line-height:1.6;">of all BrightChamps traffic arrived on mobile. Every landing page was designed at 390px first — never retrofitted.</div>
+        </div>
+        <div style="padding:32px 36px;border:1px solid var(--white-faint);border-radius:8px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Result</div>
+          <div style="font-size:42px;font-family:'Syne',sans-serif;font-weight:800;color:var(--white);line-height:1;">+31%</div>
+          <div style="font-size:14px;font-weight:300;color:var(--white-dim);margin-top:8px;line-height:1.6;">Improvement in mobile form completion rate after the responsive overhaul.</div>
+        </div>
+        <div style="padding:32px 36px;border:1px solid var(--white-faint);border-radius:8px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Approach</div>
+          <div style="font-size:16px;font-weight:300;color:var(--white-dim);line-height:1.75;">Single codebase, fully responsive at 390px, 768px and 1440px. Designed mobile-first in Figma, scaled up — never retrofitted.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Results -->
+  <section class="cs-section">
+    <div class="cs-section-tag">Impact & Results</div>
+    <h2 class="cs-section-title">Numbers that<br/>changed conversations</h2>
+    <p class="cs-body">Measured over 8 weeks post full redesign launch across all three markets, compared to the 8-week baseline period.</p>
+
+    <div class="cs-results">
+      <div class="cs-result-item">
+        <span class="cs-result-num">+30%</span>
+        <span class="cs-result-label">Overall conversion rate uplift</span>
+      </div>
+      <div class="cs-result-item">
+        <span class="cs-result-num">+31%</span>
+        <span class="cs-result-label">Mobile form completion</span>
+      </div>
+      <div class="cs-result-item">
+        <span class="cs-result-num">12+</span>
+        <span class="cs-result-label">A/B tests run & iterated</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learnings -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Reflections</div>
+    <h2 class="cs-section-title">What conversion design<br/>really taught me</h2>
+
+    <div class="cs-learnings">
+      <div class="cs-learning">
+        <div class="cs-learning-icon">📊</div>
+        <div class="cs-learning-text">
+          <strong>Data tells you where, not why</strong>
+          Heatmaps and analytics pinpointed where people dropped off. But only interviews revealed why they left. Both are essential — neither is sufficient alone. Always pair quantitative signals with qualitative depth.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🎯</div>
+        <div class="cs-learning-text">
+          <strong>One metric, one test</strong>
+          We failed early when we tested multiple changes at once. Isolating variables was critical — without it, you can't know what actually moved the needle. Discipline in test design is discipline in learning.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🌏</div>
+        <div class="cs-learning-text">
+          <strong>Localisation is not just translation</strong>
+          Different markets had completely different trust hierarchies. A single global page was always going to underperform. Cultural context shapes conversion as much as UX mechanics do.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">📱</div>
+        <div class="cs-learning-text">
+          <strong>Mobile is where conversions die or live</strong>
+          Over 60% of traffic, under 40% of the design attention. Mobile-first isn't a trend — in EdTech targeting parents, it's the only way to think. Desktop is the exception, not the rule.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next -->
+  <div class="cs-next">
+    <div>
+      <p class="cs-next-label">Next Case Study</p>
+      <a href="tendercuts.html" class="cs-next-title">Tendercuts →<br/>+40% Order Growth</a>
+    </div>
+    <a href="tendercuts.html" class="cs-next-arrow">→</a>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    (function lerp() {
+      rx += (mx - rx) * 0.1;
+      ry += (my - ry) * 0.1;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(lerp);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = '60px'; ring.style.height = '60px'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = '38px'; ring.style.height = '38px'; });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.cs-section, .cs-insight-card, .cs-timeline-item, .cs-learning, .cs-result-item, .design-decision, .ab-table').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+      observer.observe(el);
+    });
+  
+    // Slot machine logo
+    (function () {
+      var L = document.getElementById('slotLeft');
+      var R = document.getElementById('slotRight');
+      if (!L || !R) return;
+      var H = 24, DUR = '0.65s', EASE = 'cubic-bezier(0.22, 1, 0.36, 1)', step = 0;
+      function slide(el, row) { el.style.transition = 'transform ' + DUR + ' ' + EASE; el.style.transform = 'translateY(' + -(row * H) + 'px)'; }
+      function snap(el, row)  { el.style.transition = 'none'; el.style.transform = 'translateY(' + -(row * H) + 'px)'; }
+      function tick() {
+        if (step === 0) { slide(R, 1); }
+        else if (step === 1) { slide(L, 2); }
+        else if (step === 2) {
+          slide(L, 3); setTimeout(function(){ slide(R, 3); }, 100);
+          setTimeout(function(){ snap(L, 0); snap(R, 0); }, 750);
+        }
+        step = (step + 1) % 3;
+      }
+      setTimeout(function(){ tick(); setInterval(tick, 2000); }, 2000);
+    })();
+</script>
+</body>
+</html>

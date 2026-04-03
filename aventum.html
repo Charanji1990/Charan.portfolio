@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aventum — Case Study · Charanjeet Singh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+  <style>
+    /* Aventum-specific accent: deeper teal-gold */
+    .hero-accent-bar {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+      margin-bottom: 36px;
+      border-radius: 2px;
+    }
+    .tag-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      border: 1px solid var(--gold-border);
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-faint);
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .cs-highlight {
+      color: var(--gold);
+      font-weight: 500;
+    }
+    .problem-block {
+      padding: 40px 48px;
+      border: 1px solid var(--gold-border);
+      border-radius: 3px;
+      background: var(--gold-faint);
+      margin-top: 40px;
+    }
+    .problem-block h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .problem-block p {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--white);
+    }
+    .design-decision {
+      padding: 28px 32px;
+      border-left: 2px solid var(--gold);
+      background: rgba(201,168,76,0.03);
+      margin-bottom: 16px;
+      border-radius: 0 3px 3px 0;
+    }
+    .design-decision h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .design-decision p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--white-dim);
+    }
+    .cs-full-mockup {
+      width: calc(100% + 128px);
+      margin-left: -64px;
+      border-top: 1px solid var(--white-faint);
+      border-bottom: 1px solid var(--white-faint);
+      background: var(--black-2);
+      padding: 80px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .mini-screen {
+      border: 1px solid var(--gold-border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--black-3);
+    }
+    .mini-screen-bar {
+      padding: 10px 14px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      border-bottom: 1px solid var(--white-faint);
+      background: var(--black-2);
+    }
+    .mini-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .mini-dot:nth-child(1) { background: #FF5F57; }
+    .mini-dot:nth-child(2) { background: #FEBC2E; }
+    .mini-dot:nth-child(3) { background: #28C840; }
+    .mini-screen-body {
+      padding: 28px 24px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .mini-screen-icon { font-size: 28px; opacity: 0.5; }
+    .mini-screen-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+    }
+    @media (max-width: 1024px) {
+      .cs-full-mockup { width: 100%; margin-left: 0; padding: 60px 40px; grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .cs-full-mockup { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Nav -->
+  <nav class="cs-nav">
+    <a href="index.html" class="slot-logo" id="slotLogo" aria-label="CS">
+      <div class="slot-reel-wrap">
+        <div class="slot-reel" id="slotLeft">
+          <span>C</span><span>C</span><span>U</span><span>C</span>
+        </div>
+      </div>
+      <div class="slot-reel-wrap">
+        <div class="slot-reel" id="slotRight">
+          <span>S</span><span>X</span><span>X</span><span>S</span>
+        </div>
+      </div>
+    </a>
+    <a href="index.html#work" class="cs-nav-back">← Back to Work</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="cs-hero">
+    <div class="cs-hero-bg"></div>
+    <div class="cs-hero-bg-text">AVENTUM</div>
+
+    <div class="cs-hero-content">
+      <div class="cs-hero-tag">Case Study · 01</div>
+
+      <h1 class="cs-hero-title">
+        Aventum<br/>Insurance SaaS
+      </h1>
+
+      <div style="margin-bottom: 40px;">
+        <span class="tag-pill">Insurance SaaS</span>
+        <span class="tag-pill">0 → GTM</span>
+        <span class="tag-pill">Complex Data Systems</span>
+        <span class="tag-pill">B2B Enterprise</span>
+      </div>
+
+      <div class="cs-hero-meta">
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">My Role</span>
+          <span class="cs-hero-meta-value">Senior Lead UX Designer</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Duration</span>
+          <span class="cs-hero-meta-value">14 Months</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Platform</span>
+          <span class="cs-hero-meta-value">Web · Desktop SaaS</span>
+        </div>
+        <div class="cs-hero-meta-item">
+          <span class="cs-hero-meta-label">Outcome</span>
+          <span class="cs-hero-meta-value">Customer Experience Champion Award</span>
+        </div>
+      </div>
+
+      <div class="cs-hero-impact">
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">0→1</span>
+          <span class="cs-impact-label">Built from scratch</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">GTM</span>
+          <span class="cs-impact-label">Launched to market</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">🏆</span>
+          <span class="cs-impact-label">CX Champion Award</span>
+        </div>
+        <div class="cs-impact-stat">
+          <span class="cs-impact-num">3</span>
+          <span class="cs-impact-label">Core product modules</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Overview</div>
+    <h2 class="cs-section-title">Building an insurance<br/>platform from the ground up</h2>
+    <p class="cs-body">
+      Aventum is a Lloyd's of London-backed insurtech operating at the intersection of complex risk and modern technology. When I joined, the product existed only as a vision — there was no design system, no user research, no validated flows, and no product on screen. My mandate was to design the entire SaaS platform: from concept to market-ready.
+    </p>
+    <p class="cs-body" style="margin-top: 20px;">
+      Insurance is one of the most opaque, jargon-heavy industries in the world. The challenge wasn't just designing screens — it was understanding a domain most designers never touch, translating it into intuitive digital workflows, and making enterprise software that insurance professionals actually <em>wanted</em> to use.
+    </p>
+
+    <div class="problem-block">
+      <h3>The Core Problem</h3>
+      <p>Insurance underwriting and policy management is done in legacy systems — spreadsheets, emails, paper trails. Aventum needed a platform that digitised this entire workflow without disrupting the way specialist brokers and underwriters think. <span class="cs-highlight">The product had to feel native to their world, not foreign.</span></p>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Design Process</div>
+    <h2 class="cs-section-title">How I approached<br/>a blank canvas</h2>
+
+    <div class="cs-process">
+      <div class="cs-process-step">
+        <span class="cs-process-num">01</span>
+        <div class="cs-process-name">Domain Immersion</div>
+        <p class="cs-process-desc">Embedded with underwriters, brokers and actuaries for 3 weeks. Mapped mental models and existing workflows before touching Figma.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">02</span>
+        <div class="cs-process-name">Jobs-to-be-Done</div>
+        <p class="cs-process-desc">Ran JTBD workshops to identify what users were truly trying to accomplish, stripping away legacy jargon to find core intent.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">03</span>
+        <div class="cs-process-name">System Architecture</div>
+        <p class="cs-process-desc">Designed the information architecture across 3 modules — Quote, Policy, and Claims — with shared data patterns.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">04</span>
+        <div class="cs-process-name">Design & Prototype</div>
+        <p class="cs-process-desc">Built a 90-component design system in Figma. Rapid hi-fi prototyping with real insurance data scenarios and edge cases.</p>
+      </div>
+      <div class="cs-process-step">
+        <span class="cs-process-num">05</span>
+        <div class="cs-process-name">Validate & Ship</div>
+        <p class="cs-process-desc">Bi-weekly usability testing with actual underwriters. Iterated through 6 major versions before GTM. Supported dev through launch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Research Insights</div>
+    <h2 class="cs-section-title">What I discovered<br/>in the field</h2>
+    <p class="cs-body">Three weeks of shadowing underwriters revealed patterns no desk research could have surfaced. These insights became the design north stars for every decision that followed.</p>
+
+    <div class="cs-insights">
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 01</span>
+        <div class="cs-insight-title">Context-switching kills productivity</div>
+        <p class="cs-insight-body">Underwriters had 9–12 tabs open simultaneously to piece together a risk picture. Every screen switch cost cognitive load and introduced errors. The platform needed radical information consolidation.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 02</span>
+        <div class="cs-insight-title">Trust is built through data transparency</div>
+        <p class="cs-insight-body">Users didn't trust black-box calculations. They needed to see the logic behind every premium figure, every risk flag. Showing the "why" behind data increased confidence and adoption significantly.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 03</span>
+        <div class="cs-insight-title">Jargon is a feature, not a bug</div>
+        <p class="cs-insight-body">Early prototypes used plain language. Users rejected them — the domain terminology was part of their professional identity. The UI needed to honour the language of insurance, not oversimplify it.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 04</span>
+        <div class="cs-insight-title">Errors are expensive — prevention over recovery</div>
+        <p class="cs-insight-body">A single data entry error in insurance can invalidate an entire policy. Users needed real-time validation, smart defaults, and inline guidance — not post-submission error states.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 05</span>
+        <div class="cs-insight-title">Collaboration is invisible in legacy tools</div>
+        <p class="cs-insight-body">Multiple stakeholders — broker, underwriter, actuary — worked on the same risk sequentially without visibility into each other's work. Building shared state and audit trails was a critical unlock.</p>
+      </div>
+      <div class="cs-insight-card">
+        <span class="cs-insight-num">INS — 06</span>
+        <div class="cs-insight-title">Speed matters more than aesthetics</div>
+        <p class="cs-insight-body">Enterprise users prioritised task completion speed above all else. Beautiful UI meant nothing if it slowed them down. Every design decision was benchmarked against time-on-task metrics.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Decisions -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Design Decisions</div>
+    <h2 class="cs-section-title">The key calls<br/>that shaped the product</h2>
+
+    <div class="cs-two-col" style="margin-top: 48px; gap: 60px;">
+      <div>
+        <div class="design-decision">
+          <h4>Single-pane risk overview</h4>
+          <p>Instead of multi-tab workflows, I designed a persistent risk panel that showed the complete context of any submission — coverage details, risk flags, documents, and comments — in one scrollable view. Eliminated the 9-tab problem instantly.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Progressive disclosure for complex forms</h4>
+          <p>Insurance quote forms can have 80+ fields. I designed a stage-by-stage disclosure system that revealed fields only when relevant, reducing perceived complexity by 60% while capturing all required data.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Transparent calculation engine UI</h4>
+          <p>Built an expandable "rate breakdown" component that showed users exactly how premiums were calculated — each factor, each multiplier. This single decision was the most-praised feature in user testing.</p>
+        </div>
+      </div>
+      <div>
+        <div class="design-decision">
+          <h4>Shared state collaboration layer</h4>
+          <p>Designed a real-time activity feed and task assignment system native to each submission. Brokers could see underwriter notes, actuaries could flag questions — all without leaving the submission context.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Domain-accurate design system</h4>
+          <p>Built 90 components specifically for insurance workflows — risk tables, coverage toggles, premium sliders, document upload with parsing indicators. Every component was tested with real users before entering the library.</p>
+        </div>
+        <div class="design-decision">
+          <h4>Smart validation with contextual guidance</h4>
+          <p>Implemented inline validation that not only caught errors but explained why they occurred and what the correct value should be — pulling from insurance regulation data. Reduced support tickets by over 40%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section style="padding: 0 64px;">
+    <div class="cs-quote">
+      <p class="cs-quote-text">"The hardest part of designing for a specialist domain is learning to respect the complexity rather than simplify it away. Insurance professionals are expert users — your job is to match their mental model, not impose a new one."</p>
+      <span class="cs-quote-attr">Design principle that guided every Aventum decision</span>
+    </div>
+  </section>
+
+  <!-- NDA Notice -->
+  <div style="width:100%;background:var(--black-2);border-top:1px solid var(--white-faint);border-bottom:1px solid var(--white-faint);padding:80px 64px;">
+    <div style="max-width:760px;margin:0 auto;text-align:center;">
+      <div style="width:56px;height:56px;border:1px solid var(--gold-border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:var(--gold-faint);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--gold);">
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div style="font-size:10px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;">Non-Disclosure Agreement</div>
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:28px;color:var(--white);line-height:1.3;margin-bottom:20px;">Designs are under NDA and cannot be shown publicly</h3>
+      <p style="font-size:16px;font-weight:300;color:var(--white-dim);line-height:1.8;margin-bottom:40px;">Aventum is a UK-based insurance SaaS platform. The full product design — including the Quote Builder, Risk Overview Panel, Policy Management and Claims module — was built from 0 to GTM under a confidentiality agreement with the client. The visual designs are not available for public display.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left;margin-bottom:40px;">
+        <div style="padding:24px;border:1px solid var(--white-faint);border-radius:6px;">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">What was built</div>
+          <div style="font-size:13px;font-weight:300;color:var(--white-dim);line-height:1.7;">Quote Builder · Policy Manager · Claims Flow · Risk Overview · Component Library</div>
+        </div>
+        <div style="padding:24px;border:1px solid var(--white-faint);border-radius:6px;">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">My scope</div>
+          <div style="font-size:13px;font-weight:300;color:var(--white-dim);line-height:1.7;">End-to-end ownership · IA · User Research · Hi-fi Design · Design System · GTM</div>
+        </div>
+        <div style="padding:24px;border:1px solid var(--white-faint);border-radius:6px;">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Available on request</div>
+          <div style="font-size:13px;font-weight:300;color:var(--white-dim);line-height:1.7;">Full walkthrough available via a private Figma link — reach out directly to request access.</div>
+        </div>
+      </div>
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid var(--gold);border-radius:2px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;background:var(--gold-faint);transition:background 0.2s;">Request Private Access →</a>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <section class="cs-section">
+    <div class="cs-section-tag">Project Timeline</div>
+    <h2 class="cs-section-title">14 months,<br/>zero to launch</h2>
+
+    <div class="cs-timeline">
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Month 1–2</div>
+        <div>
+          <div class="cs-timeline-content-title">Domain Research & Stakeholder Alignment</div>
+          <p class="cs-timeline-content-desc">Embedded with underwriting teams. Conducted 18 stakeholder interviews. Mapped existing workflows in Miro. Established design principles with product and engineering leadership.</p>
+        </div>
+      </div>
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Month 3–4</div>
+        <div>
+          <div class="cs-timeline-content-title">Information Architecture & System Design</div>
+          <p class="cs-timeline-content-desc">Defined the 3-module structure (Quote, Policy, Claims). Built the IA for each module. Started the component library with atomic design principles. First wireframes validated with users.</p>
+        </div>
+      </div>
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Month 5–9</div>
+        <div>
+          <div class="cs-timeline-content-title">Core Product Design & Iteration</div>
+          <p class="cs-timeline-content-desc">Hi-fi design of all core flows across 3 modules. 90-component design system completed. 4 rounds of usability testing. Bi-weekly design reviews with engineering. Major pivots on quote form and risk panel based on user feedback.</p>
+        </div>
+      </div>
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Month 10–12</div>
+        <div>
+          <div class="cs-timeline-content-title">Edge Cases, Polish & Dev Handoff</div>
+          <p class="cs-timeline-content-desc">Designed 200+ edge case states — empty states, error states, loading states, permission states. Conducted design QA with engineering. Accessibility audit and WCAG 2.1 AA compliance.</p>
+        </div>
+      </div>
+      <div class="cs-timeline-item">
+        <div class="cs-timeline-phase">Month 13–14</div>
+        <div>
+          <div class="cs-timeline-content-title">Beta, Launch & Post-Launch</div>
+          <p class="cs-timeline-content-desc">Supported closed beta with 3 Lloyd's of London syndicates. Rapid iteration on beta feedback. GTM launch. Monitored analytics and session recordings post-launch. Awarded Customer Experience Champion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Impact & Results</div>
+    <h2 class="cs-section-title">What the work<br/>achieved</h2>
+    <p class="cs-body">Measured outcomes from the beta launch and first 3 months post-GTM, collected through analytics, user surveys, and stakeholder feedback.</p>
+
+    <div class="cs-results">
+      <div class="cs-result-item">
+        <span class="cs-result-num">0→GTM</span>
+        <span class="cs-result-label">Full platform launched to market</span>
+      </div>
+      <div class="cs-result-item">
+        <span class="cs-result-num">90+</span>
+        <span class="cs-result-label">Component design system built</span>
+      </div>
+      <div class="cs-result-item">
+        <span class="cs-result-num">40%↓</span>
+        <span class="cs-result-label">Reduction in support tickets</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learnings -->
+  <div class="cs-divider"></div>
+  <section class="cs-section">
+    <div class="cs-section-tag">Reflections</div>
+    <h2 class="cs-section-title">What this project<br/>taught me</h2>
+
+    <div class="cs-learnings">
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🧭</div>
+        <div class="cs-learning-text">
+          <strong>Domain expertise is a design superpower</strong>
+          The weeks I spent learning insurance weren't "preparation" — they were design work. Every hour of research saved three hours of redesign. Invest in understanding the domain before opening Figma.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🤝</div>
+        <div class="cs-learning-text">
+          <strong>Engineering partnership matters more at scale</strong>
+          A 0→1 product requires designers and engineers to be in daily conversation. Design decisions affect architecture. Architecture constrains design. The earlier you build that trust, the better the product.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🔬</div>
+        <div class="cs-learning-text">
+          <strong>Test with extreme users, not average ones</strong>
+          Our best insights came from the most experienced underwriters — they found edge cases, questioned assumptions, and pushed us toward robust solutions. Intermediate users validate; experts stress-test.
+        </div>
+      </div>
+      <div class="cs-learning">
+        <div class="cs-learning-icon">🏗️</div>
+        <div class="cs-learning-text">
+          <strong>A design system is a product in itself</strong>
+          Building the component library wasn't overhead — it was what allowed us to design consistently at speed across 3 modules. Treated it like a product: versioned, documented, and maintained.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Project -->
+  <div class="cs-next">
+    <div>
+      <p class="cs-next-label">Next Case Study</p>
+      <a href="brightchamps.html" class="cs-next-title">BrightChamps →<br/>+30% Conversion Uplift</a>
+    </div>
+    <a href="brightchamps.html" class="cs-next-arrow">→</a>
+  </div>
+
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    (function lerp() {
+      rx += (mx - rx) * 0.1;
+      ry += (my - ry) * 0.1;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(lerp);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = '60px'; ring.style.height = '60px'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = '38px'; ring.style.height = '38px'; });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.cs-section, .cs-insight-card, .cs-timeline-item, .cs-learning, .cs-result-item, .design-decision').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+      observer.observe(el);
+    });
+  
+    // Slot machine logo
+    (function () {
+      var L = document.getElementById('slotLeft');
+      var R = document.getElementById('slotRight');
+      if (!L || !R) return;
+      var H = 24, DUR = '0.65s', EASE = 'cubic-bezier(0.22, 1, 0.36, 1)', step = 0;
+      function slide(el, row) { el.style.transition = 'transform ' + DUR + ' ' + EASE; el.style.transform = 'translateY(' + -(row * H) + 'px)'; }
+      function snap(el, row)  { el.style.transition = 'none'; el.style.transform = 'translateY(' + -(row * H) + 'px)'; }
+      function tick() {
+        if (step === 0) { slide(R, 1); }
+        else if (step === 1) { slide(L, 2); }
+        else if (step === 2) {
+          slide(L, 3); setTimeout(function(){ slide(R, 3); }, 100);
+          setTimeout(function(){ snap(L, 0); snap(R, 0); }, 750);
+        }
+        step = (step + 1) % 3;
+      }
+      setTimeout(function(){ tick(); setInterval(tick, 2000); }, 2000);
+    })();
+</script>
+</body>
+</html>
